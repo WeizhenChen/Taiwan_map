@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+/* 訓練辦理成效-圖表1 */
+
+#chart_div {
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #fff;
+    width: 850px;
+    height: 640px;
+    border: #CCC 1px solid;
+    margin: auto;
+}
+
+#main {
+    float: left;
+    width: 750px;
+}
+
+#sidebar {
+    float: right;
+    width: 100px;
+}
+
+#sequence {
+    width: 750px;
+    height: 40px;
+}
+
+#legend {
+    padding: 10px 0 0 0;
+    text-align: center;
+}
+
+#sequence text,
+#legend text {
+    font-weight: 600;
+    fill: #fff;
+    font-size: 1.2em;
+}
+
+#chart {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#chart path {
+    stroke: #fff;
+}
+
+#explanation {
+    position: absolute;
+    top: 225px;
+    left: 305px;
+    width: 140px;
+    text-align: center;
+    color: #666;
+}
+
+#percentage {
+    font-size: 3.5em;
+}
+
+#name,
+#class_type {
+    font-size: 1.5em;
+}
+
+
+/* 圖表2 */
+
+text.parent,
+text.child {
+    font-size: 15px;
+    pointer-events: none;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+circle {
+    fill: #fff;
+    pointer-events: all;
+    stroke: #fff;
+    stroke-width: 0.3;
+}
+
+circle.parent {
+    fill: rgb(51, 167, 194);
+    fill-opacity: 0.4;
+}
+
+circle.parent:hover {
+    stroke: #000;
+    stroke-width: 1;
+}
+
+circle.child {
+    pointer-events: none;
+}
+
+.menu {
+    float: left;
+    width: 46px;
+    background: #49505a;
+    margin: 10px 10px 0px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding-bottom: 6px;
+}
+
+.menu_2 {
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 23px;
+    padding: 5px 1px;
+    margin: 0px auto;
+    margin-top: 6px;
+    font-weight: bold;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30px;
+    line-height: 17.5pt \9;
+    padding: 5px 2px 5px 5px \9;
+    width: 26px \9;
+}
+
+.menu_3 {
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 23px;
+    padding: 5px 1px;
+    margin: 0px auto;
+    margin-top: 6px;
+    font-weight: bold;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30px;
+    line-height: 17.5pt \9;
+    padding: 5px 2px 5px 5px \9;
+    width: 26px \9;
+}
+
+#taiwan_map {
+    background-color: #fff;
+    width: 850px;
+    height: 700px;
+    border: #CCC 1px solid;
+    margin: auto;
+    background: #93c8fd;
+    position: relative;
+}
+
+#map_explanation {
+    position: absolute;
+    top: 390px;
+    left: 540px;
+    width: 140px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 55px;
+}
+
+.map_div {
+    width: 770px;
+    height: 700px;
+    position: absolute;
+    left: -140px;
+}
+
+#map {
+    width: 770px;
+    height: 700px;
+}
+
+#map path {
+    stroke: #fff;
+    stroke-width: 1.5;
+}
+
+#map text {
+    font-weight: 600;
+    fill: #000;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+#title_div {
+    width: 600px;
+    margin: 0px 15px;
+    float: left;
+    padding: 5px 0px;
+    text-align: center;
+}
+
+#title_div_2 {
+    width: 1000px;
+    text-align: center;
+    margin: auto;
+    padding: 20px 0px 5px;
+}

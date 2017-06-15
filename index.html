@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+    <title>圖像化報表</title>
+    <link rel="stylesheet" type="text/css" href="css/chart.css" />
+    <link rel="stylesheet" type="text/css" href="css/analysis.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600"/>
+    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <style type="text/css">
+        #skill_type_table,
+        #grade_type_table {
+            text-align: center;
+            width: 600px;
+            table-layout: fixed;
+            display: none;
+        }
+        
+        #academy_batch_table {
+            table-layout: fixed;
+            text-align: center;
+        }
+        
+        #city_table {
+            text-align: center;
+            width: 500px;
+            table-layout: fixed;
+            min-width: 500px;
+        }
+        
+        #box {
+            position: absolute;
+            height: 82px;
+            width: 100px;
+            border: 3px #000000 solid;
+        }
+        
+        #mp_sidebar,
+        #mp_legend {
+            height: 700px;
+            width: 850px;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: bold;
+        }
+        
+        .axis path,
+        .axis tick,
+        .axis line {
+            fill: none;
+            stroke: none;
+        }
+        
+        .legendRect {
+            stroke: #fff;
+            stroke-width: 1.5;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="data_block block_chart_3" style="margin: 0 auto;display: table;width: 1270px;">
+        <div id="taiwan_map">
+            <div id="box" style="top:35px;left:110px;"></div>
+            <div id="box" style="top:130px;left:110px;height:60px;"></div>
+            <div id="map_explanation" style="visibility:hidden;">
+                <span id="city_name" style="font-size:22px;"></span><br/>
+                <span id="map_num_text"></span><br/>
+                <span style="font-size:14px;">報名人次</span>
+            </div>
+            <div class="map_div">
+                <svg id="map"></svg>
+            </div>
+            <div id="mp_sidebar">
+                <svg id="mp_legend"></svg>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //圖表3
+        var popData = [{
+            "COUNTYNAME": "臺北市",
+            "population": 295
+        }, {
+            "COUNTYNAME": "臺中市",
+            "population": 667
+        }, {
+            "COUNTYNAME": "基隆市",
+            "population": 18
+        }, {
+            "COUNTYNAME": "臺南市",
+            "population": 552
+        }, {
+            "COUNTYNAME": "高雄市",
+            "population": 544
+        }, {
+            "COUNTYNAME": "新北市",
+            "population": 481
+        }, {
+            "COUNTYNAME": "宜蘭縣",
+            "population": 194
+        }, {
+            "COUNTYNAME": "桃園市",
+            "population": 363
+        }, {
+            "COUNTYNAME": "嘉義市",
+            "population": 63
+        }, {
+            "COUNTYNAME": "新竹縣",
+            "population": 95
+        }, {
+            "COUNTYNAME": "苗栗縣",
+            "population": 257
+        }, {
+            "COUNTYNAME": "南投縣",
+            "population": 540
+        }, {
+            "COUNTYNAME": "彰化縣",
+            "population": 361
+        }, {
+            "COUNTYNAME": "新竹市",
+            "population": 85
+        }, {
+            "COUNTYNAME": "雲林縣",
+            "population": 240
+        }, {
+            "COUNTYNAME": "嘉義縣",
+            "population": 304
+        }, {
+            "COUNTYNAME": "屏東縣",
+            "population": 387
+        }, {
+            "COUNTYNAME": "花蓮縣",
+            "population": 309
+        }, {
+            "COUNTYNAME": "臺東縣",
+            "population": 139
+        }, {
+            "COUNTYNAME": "金門縣",
+            "population": 3
+        }, {
+            "COUNTYNAME": "澎湖縣",
+            "population": 10
+        }, {
+            "COUNTYNAME": "連江縣",
+            "population": 0
+        }, ];
+        var max = 670;
+        var min = 0;
+
+    </script>
+    <script type="text/javascript" src="js/county.js"></script>
+    <script type="text/javascript" src="js/chart.js"></script>
+
+</body>
+
+</html>
