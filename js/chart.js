@@ -1,24 +1,36 @@
 /* 圖表3(地圖) start==========================================================================================*/
 
+var topo = topojson.feature(map_data, map_data.objects.layer1);
+var prj = d3.geo.mercator().center([120.767705, 24.424612]).scale(10000).translate([500, 195]);
+var path = d3.geo.path().projection(prj);
+
 var population = new Array();
 
-for (var i = 0, len = popData.length; i < len; i += 1) {
-    population[popData[i].COUNTYNAME] = popData[i].population;
+for (var i = 0; i < Data.length; i++) {
+    population[Data[i].COUNTYNAME] = Data[i].population;
 }
 
-topo = topojson.feature(map_data, map_data.objects.layer1);
-prj = d3.geo.mercator().center([120.767705, 24.424612]).scale(10000).translate([500, 195]);
-path = d3.geo.path().projection(prj);
-
-for (var i = 0, len = topo.features.length; i < len; i += 1) {
+for (var i = 0; i < topo.features.length; i++) {
     topo.features[i].properties.value = population[topo.features[i].properties.name]
 }
 
-colorMap = d3.scale.linear()
-    .domain([min, max])
-    .range(['#FFC78E', '#BB5E00']);
+d3.select("div#map_div")
+    .append("svg")
+    .attr({
+        id: "map"
+    });
 
-locks = d3.select("svg#map")
+var coloursYGB = ['#FFC78E', '#BB5E00'];
+
+var colorMap = d3.scale.linear()
+    .domain([d3.min(Data, function (d) {
+        return d.population
+    }), d3.max(Data, function (d) {
+        return d.population
+    })])
+    .range(coloursYGB);
+
+var locks = d3.select("svg#map")
     .selectAll("path")
     .data(topo.features)
     .enter()
@@ -31,24 +43,22 @@ locks = d3.select("svg#map")
         return "T" + d.properties.COUNTYSN;
     })
     .on("mouseover", function (select) {
-        d3.select("svg#map")
-            .selectAll("path")
-            .attr("fill", function (d) {
-                return d.properties.COUNTYSN === select.properties.COUNTYSN ? "#00AEAE" : colorMap(d.properties.value);
-            });
+        d3.select("path#T" + select.properties.COUNTYSN)
+            .attr("fill", "#00AEAE");
+
         d3.select("#map_explanation")
             .style("visibility", "");
+
         d3.select("#map_num_text")
             .text(thousand(select.properties.value));
+
         d3.select("#city_name")
             .text(select.properties.name);
     })
     .on("mouseout", function (select) {
-        d3.select("svg#map")
-            .selectAll("path")
-            .attr("fill", function (d) {
-                return colorMap(d.properties.value);
-            });
+        d3.select("path#T" + select.properties.COUNTYSN)
+            .attr("fill", colorMap(select.properties.value));
+
         d3.select("#map_explanation")
             .style("visibility", "hidden");
     });
@@ -60,13 +70,21 @@ d3.select("#T09020001").attr("transform", "translate(225,-28)");
 var legendWidth = 30,
     legendHeight = 350;
 
-var defs = d3.select('svg#mp_legend').append("defs");
-var coloursYGB = ['#FFC78E', '#BB5E00'];
+d3.select("div#mp_sidebar")
+    .append("svg")
+    .attr({
+        id: "mp_legend"
+    });
 
-//Create color gradient
+var defs = d3.select('svg#mp_legend').append("defs");
+
 var colorScaleYGB = d3.scale.linear()
-    .domain([min, max])
-    .range(['#FFC78E', '#BB5E00'])
+    .domain([d3.min(Data, function (d) {
+        return d.population
+    }), d3.max(Data, function (d) {
+        return d.population
+    })])
+    .range(coloursYGB)
     .interpolate(d3.interpolateHcl);
 
 defs.append("linearGradient")
@@ -85,12 +103,10 @@ defs.append("linearGradient")
         return d;
     });
 
-//Color Legend container
 var legendsvg = d3.select('svg#mp_legend').append("g")
     .attr("class", "legendWrapper")
     .attr("transform", "translate(730,30)");
 
-//Draw the Rectangle
 legendsvg.append("rect")
     .attr("class", "legendRect")
     .attr("x", -legendWidth / 2)
@@ -99,35 +115,37 @@ legendsvg.append("rect")
     .attr("height", legendHeight)
     .style("fill", "none");
 
-//Set scale for x-axis
 var yScale = d3.scale.linear()
-    .range([legendHeight, 0])
-    .domain([min, max]);
+    .domain([d3.min(Data, function (d) {
+        return d.population
+    }), d3.max(Data, function (d) {
+        return d.population
+    })])
+    .range([legendHeight, 0]);
 
-//Define x-axis
 var yAxis = d3.svg.axis()
     .orient("right")
-    .ticks(5) //Set rough # of ticks
+    .ticks(5)
     .scale(yScale);
 
-//Set up X axis
 legendsvg.append("g")
-    .attr("class", "axis") //Assign "axis" class
+    .attr("class", "axis")
     .attr("transform", "translate(15,0)")
     .call(yAxis);
 
-d3.select('svg#mp_legend').select(".legendRect")
+d3.select('svg#mp_legend')
+    .select(".legendRect")
     .style("fill", "url(#gradient-ygb-colors)")
     .attr("rx", "5")
     .attr("ry", "5");
 
-function thousand( number ){
-		var num = number+"";
-		var pattern = /(-?\d+)(\d{3})/;
-		while( pattern.test(num) ){
-				num = num.replace(pattern,"$1,$2");
-		}
-		return num;
+function thousand(number) {
+    var num = number + "";
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(num)) {
+        num = num.replace(pattern, "$1,$2");
+    }
+    return num;
 }
 
 /* 圖表3(地圖) end==========================================================================================*/

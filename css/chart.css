@@ -168,7 +168,11 @@ circle.child {
     font-size: 55px;
 }
 
-.map_div {
+#map_num_text {
+    font-family: monospace;
+}
+
+#map_div {
     width: 770px;
     height: 700px;
     position: absolute;

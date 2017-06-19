@@ -2,32 +2,26 @@
 <html>
 
 <head>
-    <title>圖像化報表</title>
-    <link rel="stylesheet" type="text/css" href="css/chart.css" />
-    <link rel="stylesheet" type="text/css" href="css/analysis.css" />
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600"/>
+    <title>臺灣出版產業分布</title>
+
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/chart.css" />
+
     <style type="text/css">
-        #skill_type_table,
-        #grade_type_table {
-            text-align: center;
-            width: 600px;
-            table-layout: fixed;
-            display: none;
+        body {
+            font-family: "微軟正黑體", "新細明體", "細明體", "標楷體";
         }
         
-        #academy_batch_table {
-            table-layout: fixed;
+        .title {
+            font-size: 25pt;
+            height: 60px;
+            line-height: 60px;
             text-align: center;
-        }
-        
-        #city_table {
-            text-align: center;
-            width: 500px;
-            table-layout: fixed;
-            min-width: 500px;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
         
         #box {
@@ -62,26 +56,28 @@
 
 <body>
 
-    <div class="data_block block_chart_3" style="margin: 0 auto;display: table;width: 1270px;">
+    <div class="title">臺灣出版產業分布</div>
+
+    <div class="data_block data_block_1" style="margin: 0 auto;display: table;">
         <div id="taiwan_map">
             <div id="box" style="top:35px;left:110px;"></div>
             <div id="box" style="top:130px;left:110px;height:60px;"></div>
             <div id="map_explanation" style="visibility:hidden;">
-                <span id="city_name" style="font-size:22px;"></span><br/>
-                <span id="map_num_text"></span>
+                <div id="city_name" style="font-size:22px;"></div>
+                <div id="map_num_text"></div>
             </div>
-            <div class="map_div">
-                <svg id="map"></svg>
-            </div>
-            <div id="mp_sidebar">
-                <svg id="mp_legend"></svg>
-            </div>
+            <div id="map_div"></div>
+            <div id="mp_sidebar"></div>
         </div>
+    </div>
+
+    <div class="data_block data_block_2" style="margin: 0 auto;display: table;">
+
     </div>
 
     <script type="text/javascript">
         //圖表3
-        var popData = [{
+        var Data = [{
             "COUNTYNAME": "臺北市",
             "population": 295
         }, {
@@ -148,8 +144,6 @@
             "COUNTYNAME": "連江縣",
             "population": 0
         }, ];
-        var max = 670;
-        var min = 0;
 
     </script>
     <script type="text/javascript" src="js/county.js"></script>
