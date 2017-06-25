@@ -13,7 +13,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10014001",
                     "COUNTYNAME": "臺東縣",
-                    "name": "臺東縣"
+                    "name": "臺東縣",
+                    "value": 0
                 }
             }, {
                 "type": "MultiPolygon",
@@ -21,7 +22,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10002001",
                     "COUNTYNAME": "宜蘭縣",
-                    "name": "宜蘭縣"
+                    "name": "宜蘭縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -29,7 +31,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "63000001",
                     "COUNTYNAME": "臺北市",
-                    "name": "臺北市"
+                    "name": "臺北市",
+                    "value": 0
                 }
             }, {
                 "type": "MultiPolygon",
@@ -37,7 +40,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10009001",
                     "COUNTYNAME": "雲林縣",
-                    "name": "雲林縣"
+                    "name": "雲林縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -45,7 +49,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10003001",
                     "COUNTYNAME": "桃園市",
-                    "name": "桃園市"
+                    "name": "桃園市",
+                    "value": 0
                 }
             }, {
                 "type": "MultiPolygon",
@@ -53,7 +58,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10013001",
                     "COUNTYNAME": "屏東縣",
-                    "name": "屏東縣"
+                    "name": "屏東縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -61,7 +67,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10006001",
                     "COUNTYNAME": "臺中市",
-                    "name": "臺中市"
+                    "name": "臺中市",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -69,7 +76,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10011001",
                     "COUNTYNAME": "臺南市",
-                    "name": "臺南市"
+                    "name": "臺南市",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -77,7 +85,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10017001",
                     "COUNTYNAME": "基隆市",
-                    "name": "基隆市"
+                    "name": "基隆市",
+                    "value": 0
                 }
             }, {
                 "type": "MultiPolygon",
@@ -85,7 +94,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "09007001",
                     "COUNTYNAME": "連江縣",
-                    "name": "連江縣"
+                    "name": "連江縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -93,7 +103,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10008001",
                     "COUNTYNAME": "南投縣",
-                    "name": "南投縣"
+                    "name": "南投縣",
+                    "value": 0
                 }
             }, {
                 "type": "MultiPolygon",
@@ -101,7 +112,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10016001",
                     "COUNTYNAME": "澎湖縣",
-                    "name": "澎湖縣"
+                    "name": "澎湖縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -109,7 +121,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10005001",
                     "COUNTYNAME": "苗栗縣",
-                    "name": "苗栗縣"
+                    "name": "苗栗縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -117,7 +130,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10020001",
                     "COUNTYNAME": "嘉義市",
-                    "name": "嘉義市"
+                    "name": "嘉義市",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -125,7 +139,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10004001",
                     "COUNTYNAME": "新竹縣",
-                    "name": "新竹縣"
+                    "name": "新竹縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -133,7 +148,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10001001",
                     "COUNTYNAME": "新北市",
-                    "name": "新北市"
+                    "name": "新北市",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -141,7 +157,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10015001",
                     "COUNTYNAME": "花蓮縣",
-                    "name": "花蓮縣"
+                    "name": "花蓮縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -149,7 +166,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10012001",
                     "COUNTYNAME": "高雄市",
-                    "name": "高雄市"
+                    "name": "高雄市",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -157,7 +175,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10007001",
                     "COUNTYNAME": "彰化縣",
-                    "name": "彰化縣"
+                    "name": "彰化縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -165,7 +184,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10010001",
                     "COUNTYNAME": "嘉義縣",
-                    "name": "嘉義縣"
+                    "name": "嘉義縣",
+                    "value": 0
                 }
             }, {
                 "type": "MultiPolygon",
@@ -173,7 +193,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "09020001",
                     "COUNTYNAME": "金門縣",
-                    "name": "金門縣"
+                    "name": "金門縣",
+                    "value": 0
                 }
             }, {
                 "type": "Polygon",
@@ -181,7 +202,8 @@ var map_data = {
                 "properties": {
                     "COUNTYSN": "10018001",
                     "COUNTYNAME": "新竹市",
-                    "name": "新竹市"
+                    "name": "新竹市",
+                    "value": 0
                 }
             }],
             "bbox": [118.21707123169105, 21.89671606253262, 122.00657456079266, 26.27675065458175]

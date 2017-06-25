@@ -2,148 +2,107 @@
 <html>
 
 <head>
-    <title>臺灣出版產業分布</title>
+    <title>105年臺灣出版產業分布</title>
 
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/chart.css" />
-
-    <style type="text/css">
-        body {
-            font-family: "微軟正黑體", "新細明體", "細明體", "標楷體";
+    <style>
+        .data_block {
+            margin: 0 auto;
+            display: none;
         }
         
-        .title {
-            font-size: 25pt;
-            height: 60px;
-            line-height: 60px;
-            text-align: center;
-            margin-bottom: 5px;
+        .tag_group {
+            display: table;
+            margin: 0px auto 15px;
+        }
+        
+        .tag {
+            display: inline-block;
+            border: 2px solid #777;
+            color: #777;
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin: 0px 5px;
             font-weight: bold;
+            cursor: pointer;
         }
         
-        #box {
-            position: absolute;
-            height: 82px;
-            width: 100px;
-            border: 3px #000000 solid;
+        .tag.selected,
+        .tag:hover {
+            background: #777;
+            color: #fff;
         }
         
-        #mp_sidebar,
-        #mp_legend {
-            height: 700px;
+        .data_block_2 {
+            background-color: #fff;
             width: 850px;
-            font-family: 'Open Sans', sans-serif;
-            font-weight: bold;
-        }
-        
-        .axis path,
-        .axis tick,
-        .axis line {
-            fill: none;
-            stroke: none;
-        }
-        
-        .legendRect {
-            stroke: #fff;
-            stroke-width: 1.5;
+            height: 700px;
+            border: #CCC 1px solid;
+            margin: auto;
+/*            background: #a3ccff;*/
+            position: relative;
         }
 
     </style>
+    <script>
+        $(function() {
+
+            $("div.data_block_1").show();
+
+            $("#tag_1").click(function() {
+                $("div.data_block").hide();
+                $("div.data_block_1").show();
+                $(".tag").removeClass("selected");
+                $(this).addClass("selected");
+            })
+
+            $("#tag_2").click(function() {
+                $("div.data_block").hide();
+                $("div.data_block_2").show();
+                $(".tag").removeClass("selected");
+                $(this).addClass("selected");
+            })
+
+        });
+
+    </script>
 </head>
 
 <body>
 
-    <div class="title">臺灣出版產業分布</div>
+    <div class="title">105年臺灣出版產業分布</div>
 
-    <div class="data_block data_block_1" style="margin: 0 auto;display: table;">
+    <div class="tag_group">
+        <div id="tag_1" class="tag selected">臺灣地圖</div>
+        <div id="tag_2" class="tag">氣泡圖</div>
+    </div>
+
+    <div class="data_block data_block_1">
         <div id="taiwan_map">
             <div id="box" style="top:35px;left:110px;"></div>
             <div id="box" style="top:130px;left:110px;height:60px;"></div>
             <div id="map_explanation" style="visibility:hidden;">
-                <div id="city_name" style="font-size:22px;"></div>
+                <div id="city_name" style="font-size:28px;"></div>
                 <div id="map_num_text"></div>
+                <div style="font-size:28px;">間</div>
             </div>
             <div id="map_div"></div>
             <div id="mp_sidebar"></div>
         </div>
     </div>
 
-    <div class="data_block data_block_2" style="margin: 0 auto;display: table;">
+    <div class="data_block data_block_2">
 
     </div>
 
     <script type="text/javascript">
-        //圖表3
-        var Data = [{
-            "COUNTYNAME": "臺北市",
-            "population": 295
-        }, {
-            "COUNTYNAME": "臺中市",
-            "population": 667
-        }, {
-            "COUNTYNAME": "基隆市",
-            "population": 18
-        }, {
-            "COUNTYNAME": "臺南市",
-            "population": 552
-        }, {
-            "COUNTYNAME": "高雄市",
-            "population": 544
-        }, {
-            "COUNTYNAME": "新北市",
-            "population": 481
-        }, {
-            "COUNTYNAME": "宜蘭縣",
-            "population": 194
-        }, {
-            "COUNTYNAME": "桃園市",
-            "population": 363
-        }, {
-            "COUNTYNAME": "嘉義市",
-            "population": 63
-        }, {
-            "COUNTYNAME": "新竹縣",
-            "population": 95
-        }, {
-            "COUNTYNAME": "苗栗縣",
-            "population": 257
-        }, {
-            "COUNTYNAME": "南投縣",
-            "population": 540
-        }, {
-            "COUNTYNAME": "彰化縣",
-            "population": 361
-        }, {
-            "COUNTYNAME": "新竹市",
-            "population": 85
-        }, {
-            "COUNTYNAME": "雲林縣",
-            "population": 240
-        }, {
-            "COUNTYNAME": "嘉義縣",
-            "population": 304
-        }, {
-            "COUNTYNAME": "屏東縣",
-            "population": 387
-        }, {
-            "COUNTYNAME": "花蓮縣",
-            "population": 309
-        }, {
-            "COUNTYNAME": "臺東縣",
-            "population": 139
-        }, {
-            "COUNTYNAME": "金門縣",
-            "population": 3
-        }, {
-            "COUNTYNAME": "澎湖縣",
-            "population": 10
-        }, {
-            "COUNTYNAME": "連江縣",
-            "population": 0
-        }, ];
+        function removeAllSpace(str) {
+            return str.replace(/\s+/g, "");
+        }
 
     </script>
     <script type="text/javascript" src="js/county.js"></script>
