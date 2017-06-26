@@ -155,58 +155,48 @@ d3.csv("isbnpub.csv", function (dataSet) {
         .attr("ry", "5");
 
 
-    //2.======================================================================
+    //2.氣泡======================================================================
     var w = 850;
-    var h = 700;
-    var p = 10;
+    var h = 600;
+    var p = 70;
 
-    d3.select("div.data_block_2")
+    var page = 1;
+    var limit = 10;
+
+    d3.select("div#bubble_div")
         .append("svg")
         .attr({
-            id: "bubble_chart"
+            id: "bubble_chart",
+            width: w,
+            height: h
         });
 
-    console.log(Data);
+    page_data(page, limit, dataSet, "");
 
-    //TODO-2.先依縣市，再依癌症類別劃分
-    var nested_dataSet = d3.nest()
-        .key(function (d) {
-            return d.COUNTYNAME;
-        })
-        .entries(Data);
-
-    //console.log(nested_dataSet);
-
-    var root = {
-        values: nested_dataSet
+    var dataobj = {
+        children: Data
     };
 
-    //console.log(root);
-
-    var packed_dataSet = d3.layout.pack()
-        .size([w, h])
+    var pack = d3.layout.pack()
         .padding(p)
-        .children(
-            function (d) {
-                return d.values;
-            }
-        )
-        .nodes(root);
+        .size([w, h])
+        .sort(function (a, b) {
+            b.population - a.population;
+        });
 
-    //console.log(packed_dataSet);
+    var nodes = pack.nodes(dataobj);
 
-    //TODO-7.如何把最外的大圓去掉？
-    /*packed_dataSet = packed_dataSet.filter(function (d) {
-        return d.depth > 0;
-    })*/
+    //    nodes = nodes.filter(function (d) {
+    //        return d.parent;
+    //    });
+
+    var fScale = d3.scale.category20c();
 
     var selection = d3.select("svg#bubble_chart")
         .selectAll("circle")
-        .data(packed_dataSet);
+        .data(nodes);
     selection.enter().append("circle");
     selection.exit().remove();
-
-    var fScale = d3.scale.category20();
 
     d3.select("svg#bubble_chart")
         .selectAll("circle")
@@ -218,16 +208,91 @@ d3.csv("isbnpub.csv", function (dataSet) {
                 return d.y;
             },
             r: function (d) {
-                return d.r;
+                //console.log(d.r);
+                return d.r + 20;
             }, // 用 r 當半徑
             fill: function (d) {
-                //if (d.depth < 2) {
-                    //return "#eee";
-                //} else {
-                    return fScale(d.category);
-                //}
-            }, //TODO-5.依癌症別填不同色，需注意各節點具有欄位
-            stroke: "#666", // 邊框畫深灰色
+                if (d.depth > 0) {
+                    return fScale(d.COUNTYNAME);
+                } else {
+                    return "#fff";
+                }
+            },
+            stroke: "#666"
+        })
+        .style({
+            cursor: "pointer"
+        })
+        .on("click", function (d) {
+            //console.log(d.COUNTYNAME);
+            if (d.depth > 0) {
+                d3.select("div#bubble_data>div.word>span.city")
+                    .text(d.COUNTYNAME);
+
+                d3.select("div#bubble_data>div.word>span.count")
+                    .text(d.value + " 間");
+            } else {
+                d3.select("div#bubble_data>div.word>span.city")
+                    .text("全國");
+
+                d3.select("div#bubble_data>div.word>span.count")
+                    .text(d.value + " 間");
+            }
+            page_data(page, limit, dataSet, d.COUNTYNAME);
+
+            var posssss = $("#bubble_data").position();
+            $("html,body").animate({
+                scrollTop: (posssss.top)
+            }, 500);
+        });
+
+    var selection_t = d3.select("svg#bubble_chart")
+        .selectAll("text")
+        .data(nodes);
+    selection_t.enter().append("text");
+    selection_t.exit().remove();
+
+    d3.select("svg#bubble_chart")
+        .selectAll("text")
+        .attr({
+            x: function (d) {
+                return d.x;
+            },
+            y: function (d) {
+                return d.y;
+            },
+            "text-anchor": "middle", // 文字水平置中
+            //fill: "#fff"
+        })
+        .text(function (d) {
+            if (d.depth > 0) {
+                return d.COUNTYNAME;
+            }
+        });
+
+    var selection_t2 = d3.select("svg#bubble_chart")
+        .selectAll("text.value")
+        .data(nodes);
+    selection_t2.enter().append("text")
+        .attr("class", "value");
+    selection_t2.exit().remove();
+
+    d3.select("svg#bubble_chart")
+        .selectAll("text.value")
+        .attr({
+            x: function (d) {
+                return d.x;
+            },
+            y: function (d) {
+                return d.y + 19;
+            },
+            "text-anchor": "middle", // 文字水平置中
+            //fill: "#fff"
+        })
+        .text(function (d) {
+            if (d.depth > 0) {
+                return d.value;
+            }
         });
 
 });
@@ -239,6 +304,34 @@ function thousand(number) {
         num = num.replace(pattern, "$1,$2");
     }
     return num;
+}
+
+function page_data(page, limit, dataSet, city) {
+
+    //console.log(city);
+
+    if (city) {
+        var f_data = dataSet.filter(function (d) {
+            return removeAllSpace(d.address).substring(0, 3) == city;
+        });
+    } else {
+        var f_data = dataSet;
+    }
+
+    $("#bubble_data .table .tr.data-row").empty();
+
+    for (var i = 0; i < limit; i++) {
+        var new_tr = $("#bubble_data .table .tr:first").clone(true);
+        var sn = (page - 1) * limit + i;
+        $(new_tr).addClass("data-row");
+        $(new_tr).find("div.sn").html(+sn + 1);
+        $(new_tr).find("div.name").html(f_data[sn]["name"]);
+        $(new_tr).find("div.tel").html(f_data[sn]["tel"]);
+        $(new_tr).find("div.address").html(f_data[sn]["address"]);
+        $("#bubble_data .table").append(new_tr);
+        if ((+sn + 1) >= f_data.length) break;
+    }
+
 }
 
 /* end==========================================================================================*/
