@@ -157,7 +157,7 @@ d3.csv("isbnpub.csv", function (dataSet) {
 
     //2.氣泡======================================================================
     var w = 850;
-    var h = 600;
+    var h = 700;
     var p = 70;
 
     var page = 1;
@@ -171,15 +171,13 @@ d3.csv("isbnpub.csv", function (dataSet) {
             height: h
         });
 
-    page_data(page, limit, dataSet, "");
-
     var dataobj = {
         children: Data
     };
 
     var pack = d3.layout.pack()
         .padding(p)
-        .size([w, h])
+        .size([w, 600])
         .sort(function (a, b) {
             b.population - a.population;
         });
@@ -205,10 +203,14 @@ d3.csv("isbnpub.csv", function (dataSet) {
                 return d.x;
             }, // 用 x,y 當圓心
             cy: function (d) {
-                return d.y;
+                if (d.depth > 0) {
+                    return d.y;
+                } else {
+                    return d.y + 20;
+                }
+
             },
             r: function (d) {
-                //console.log(d.r);
                 return d.r + 20;
             }, // 用 r 當半徑
             fill: function (d) {
@@ -221,7 +223,8 @@ d3.csv("isbnpub.csv", function (dataSet) {
             stroke: "#666"
         })
         .style({
-            cursor: "pointer"
+            cursor: "pointer",
+            opacity: 0.7
         })
         .on("click", function (d) {
             //console.log(d.COUNTYNAME);
@@ -244,6 +247,16 @@ d3.csv("isbnpub.csv", function (dataSet) {
             $("html,body").animate({
                 scrollTop: (posssss.top)
             }, 500);
+        })
+        .on("mouseover", function (d) {
+            d3.select(this)
+                .style("opacity", 1)
+                .attr("stroke-width", 2);
+        })
+        .on("mouseout", function (d) {
+            d3.select(this)
+                .style("opacity", 0.7)
+                .attr("stroke-width", 1);
         });
 
     var selection_t = d3.select("svg#bubble_chart")
@@ -295,6 +308,8 @@ d3.csv("isbnpub.csv", function (dataSet) {
             }
         });
 
+    page_data(page, limit, dataSet, "");
+
 });
 
 function thousand(number) {
@@ -308,14 +323,26 @@ function thousand(number) {
 
 function page_data(page, limit, dataSet, city) {
 
-    //console.log(city);
-
     if (city) {
         var f_data = dataSet.filter(function (d) {
             return removeAllSpace(d.address).substring(0, 3) == city;
         });
     } else {
         var f_data = dataSet;
+    }
+
+    var total_page = Math.ceil(f_data.length / limit);
+
+    if (page > 1) {
+        d3.select("div.pre_page")
+            .classed("hidden", false)
+            .select("a")
+            .on("click", function (d) {
+                page_data((+page - 1), limit, dataSet, city);
+            });
+    } else {
+        d3.select("div.pre_page")
+            .classed("hidden", true);
     }
 
     $("#bubble_data .table .tr.data-row").empty();
@@ -332,6 +359,94 @@ function page_data(page, limit, dataSet, city) {
         if ((+sn + 1) >= f_data.length) break;
     }
 
+    var start_page = (page - 2 > 1) ? page - 2 : 1;
+    var end_page = (page + 2 < total_page) ? page + 2 : total_page;
+    var page_arr = [];
+
+    for (var i = start_page; i <= end_page; i++) {
+        page_arr.push(i);
+    }
+
+    //console.log(page_arr);
+
+    var selection_page = d3.select("div.page_list")
+        .selectAll("a")
+        .data(page_arr)
+        .text(function (d) {
+            return d;
+        })
+        .attr("class", function (d) {
+            if (d == page) {
+                return "now_page";
+            }
+        })
+        .on("click", function (d) {
+            page_data(d, limit, dataSet, city);
+        });
+
+    selection_page.enter()
+        .append("a")
+        .text(function (d) {
+            return d;
+        })
+        .attr("class", function (d) {
+            if (d == page) {
+                return "now_page";
+            }
+        })
+        .on("click", function (d) {
+            page_data(d, limit, dataSet, city);
+        });
+
+    selection_page.exit().remove();
+
+    if (total_page > page) {
+        d3.select("div.next_page")
+            .classed("hidden", false)
+            .select("a")
+            .on("click", function (d) {
+                page_data((+page + 1), limit, dataSet, city);
+            });
+    } else {
+        d3.select("div.next_page")
+            .classed("hidden", true);
+    }
+
 }
+
+$(function () {
+
+    $("div.data_block_1").show();
+
+    $("#tag_1").click(function () {
+        $("div.data_block").hide();
+        $("div.data_block_1").show();
+        $(".tag").removeClass("selected");
+        $(this).addClass("selected");
+    })
+
+    $("#tag_2").click(function () {
+        $("div.data_block").hide();
+        $("div.data_block_2").show();
+        $(".tag").removeClass("selected");
+        $(this).addClass("selected");
+    })
+
+    $('#window_top').click(function () {
+        $("html,body").animate({
+            scrollTop: 0
+        }, 500);
+    });
+
+    $(window).bind('scroll resize', function () {
+        var this_Top = $(this).scrollTop();
+        if (this_Top > $("#bubble_div").position().top) {
+            $("#window_top").css("display", "table");
+        } else {
+            $("#window_top").hide();
+        }
+    }).scroll();
+
+});
 
 /* end==========================================================================================*/
